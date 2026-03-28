@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head><title th:text="${profile.displayName}">Couple Profile</title></head>
+<body>
+<th:block layout:fragment="content">
+
+    <div class="max-w-5xl mx-auto py-10 px-4">
+
+        <a th:href="@{/dashboard}"
+           class="inline-block text-deep-plum text-sm font-medium mb-6">
+            &larr; Back to Dashboard
+        </a>
+
+        <div class="grid grid-cols-1 gap-8" style="grid-template-columns: 3fr 2fr;" id="detail-grid">
+
+            <!-- Profile section -->
+            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                <div class="bg-deep-plum p-8 flex items-center" style="gap:1.5rem;">
+                    <div class="bg-yellow-300 rounded-full flex items-center justify-center flex-shrink-0"
+                         style="width:5rem;height:5rem;">
+                        <span class="font-heading text-deep-plum font-bold text-2xl"
+                              th:text="${profile.initials}">AB</span>
+                    </div>
+                    <div>
+                        <h1 class="font-heading text-white text-2xl font-bold"
+                            th:text="|${profile.user.firstName} and ${profile.partnerName}|">Names</h1>
+                        <p class="text-purple-200 mt-1"
+                           th:text="|${profile.yearsMarried} years of marriage|">Years</p>
+                        <span class="inline-block mt-2 bg-green-200 text-green-900 text-xs font-semibold px-3 py-1 rounded-full">
+                            Experienced Couple
+                        </span>
+                    </div>
+                </div>
+
+                <div class="p-8">
+                    <h2 class="font-heading text-xl font-semibold text-deep-plum mb-3">Our Story</h2>
+                    <p class="text-gray-600 leading-relaxed mb-6" th:text="${profile.bio}">Bio.</p>
+
+                    <h2 class="font-heading text-xl font-semibold text-deep-plum mb-3">Areas of Strength</h2>
+                    <div th:if="${not #lists.isEmpty(profile.strengthTags)}"
+                         class="flex flex-wrap" style="gap:0.5rem;">
+                        <span th:each="tag : ${profile.strengthTags}"
+                              th:text="${tag}"
+                              class="bg-green-100 text-green-800 text-sm px-4 py-1 rounded-full font-medium">tag</span>
+                    </div>
+                    <p th:if="${#lists.isEmpty(profile.strengthTags)}"
+                       class="text-gray-400 text-sm italic">No areas listed yet.</p>
+                </div>
+            </div>
+
+            <!-- Booking section -->
+            <div class="bg-white rounded-2xl shadow-sm p-6">
+                <h2 class="font-heading text-xl font-semibold text-deep-plum mb-1">Book a Conversation</h2>
+                <p class="text-gray-400 text-sm mb-5">Choose a date and time that works for you</p>
+
+                <div th:if="${errorMessage}"
+                     class="bg-red-50 border border-red-300 text-red-700 rounded-lg px-4 py-3 text-sm mb-4"
+                     th:text="${errorMessage}">Error</div>
+
+                <form th:action="@{/couple/{id}/book(id=${profile.id})}"
+                      th:object="${bookingForm}"
+                      method="post" novalidate>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                        <input type="date" th:field="*{date}"
+                               class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"/>
+                        <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
+                           class="text-red-500 text-xs mt-1">Date error</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Time Slot</label>
+                        <select th:field="*{timeSlot}"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white">
+                            <option value="">-- Select a time --</option>
+                            <option th:each="slot : ${timeSlots}"
+                                    th:value="${slot[0]}"
+                                    th:text="${slot[1]}">Time</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('timeSlot')}" th:errors="*{timeSlot}"
+                           class="text-red-500 text-xs mt-1">Time error</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            Message <span class="text-gray-400 font-normal">(optional)</span>
+                        </label>
+                        <textarea th:field="*{message}" rows="3"
+                                  placeholder="Briefly share what you'd like to discuss..."
+                                  class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none"></textarea>
+                    </div>
+
+                    <button type="submit"
+                            class="w-full bg-deep-plum text-white py-3 rounded-lg font-semibold text-sm">
+                        Request Booking
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <style>
+        @media (max-width: 768px) {
+            #detail-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
+
+</th:block>
+</body>
+</html>

@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: newlynest
+    runtime: docker
+    envVars:
+      - key: PORT
+        value: "8080"
+      - key: DB_HOST
+        fromDatabase:
+          name: newlynest-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: newlynest-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: newlynest-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: newlynest-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: newlynest-db
+          property: password
+
+databases:
+  - name: newlynest-db
+    plan: free
+    databaseName: newlynest

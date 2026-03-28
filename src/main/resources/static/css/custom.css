@@ -1,0 +1,35 @@
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Font assignments */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+/* Focus ring override for form inputs */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(168, 195, 160, 0.4); /* sage-green */
+}
+
+/* Line clamp utility for couple bio cards */
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Peer-checked radio card styling fix for Safari */
+input[type="radio"].sr-only:checked + div {
+    border-color: #5A3E5B;
+    background-color: #f5f0f5;
+}
