@@ -8,4 +8,4 @@ Allow: /couple/
 Disallow: /accounts/profile-setup
 Disallow: /booking/confirmed
 
-Sitemap: https://newlynest-production.up.railway.app/sitemap.xml
+Sitemap: https://newlynest.in/sitemap.xml
