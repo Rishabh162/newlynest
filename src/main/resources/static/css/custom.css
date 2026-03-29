@@ -3,6 +3,27 @@ html {
     scroll-behavior: smooth;
 }
 
+/* ── Brand colour utilities ─────────────────────────────────────────────────
+   Tailwind CDN custom colours sometimes fail to generate reliably.
+   Defining them here guarantees every bg-*, text-*, border-* class always works.
+   custom.css is loaded after the CDN so these rules always win.            */
+
+.bg-deep-plum      { background-color: #5A3E5B; }
+.text-deep-plum    { color: #5A3E5B; }
+.border-deep-plum  { border-color: #5A3E5B; }
+
+.bg-soft-gold      { background-color: #D6B77A; }
+.text-soft-gold    { color: #D6B77A; }
+
+.bg-sage-green     { background-color: #A8C3A0; }
+.text-sage-green   { color: #A8C3A0; }
+
+.bg-soft-rose      { background-color: #F7C8C8; }
+.text-soft-rose    { color: #F7C8C8; }
+
+.bg-warm-beige     { background-color: #F4EFEA; }
+.text-warm-beige   { color: #F4EFEA; }
+
 /* Font assignments */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
