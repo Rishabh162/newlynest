@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /accounts/signup
+Allow: /accounts/login
+Allow: /dashboard
+Allow: /couple/
+
+Disallow: /accounts/profile-setup
+Disallow: /booking/confirmed
+
+Sitemap: https://newlynest-production.up.railway.app/sitemap.xml

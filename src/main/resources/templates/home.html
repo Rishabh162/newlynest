@@ -3,7 +3,21 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
-<head><title>Home</title></head>
+<head>
+    <title>NewlyNest — Peer Support for Newly Married Couples</title>
+    <meta th:name="description" th:content="'NewlyNest connects newly married couples with experienced ones for real conversations about marriage. Free peer support from couples who have been there.'"/>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "NewlyNest",
+      "url": "https://newlynest-production.up.railway.app/",
+      "description": "Peer support platform connecting newly married couples with experienced mentor couples for real conversations about marriage.",
+      "serviceType": "Marriage Peer Support",
+      "audience": { "@type": "Audience", "audienceType": "Newly Married Couples" }
+    }
+    </script>
+</head>
 <body>
 <th:block layout:fragment="content">
 
