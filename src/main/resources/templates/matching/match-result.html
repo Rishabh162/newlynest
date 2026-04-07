@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head><title>Your Match — NewlyNest</title></head>
+<body>
+<th:block layout:fragment="content">
+
+    <div class="hero-gradient" style="padding:2.5rem 1.5rem 2rem;border-bottom:1px solid rgba(90,62,91,0.08);">
+        <div class="max-w-2xl mx-auto">
+            <h1 class="font-heading font-bold text-deep-plum" style="font-size:clamp(1.5rem,3vw,2rem);margin-bottom:0.3rem;">
+                🌟 Your Recommended Couple
+            </h1>
+            <p style="color:#6b7280;font-size:0.95rem;">Based on your profile, here's your best match.</p>
+        </div>
+    </div>
+
+    <div class="max-w-2xl mx-auto py-10 px-4">
+
+        <!-- Match card -->
+        <div style="background:white;border-radius:1.5rem;overflow:hidden;box-shadow:0 4px 20px rgba(90,62,91,0.10);">
+
+            <!-- Card header -->
+            <div class="plum-gradient" style="padding:2rem;display:flex;align-items:center;gap:1.25rem;">
+                <div style="width:4rem;height:4rem;border-radius:9999px;background:rgba(255,255,255,0.2);
+                            display:flex;align-items:center;justify-content:center;flex-shrink:0;
+                            border:2px solid rgba(255,255,255,0.4);font-size:1.75rem;">
+                    💑
+                </div>
+                <div>
+                    <h2 class="font-heading font-bold text-white" style="font-size:1.3rem;margin-bottom:0.25rem;">
+                        Your Matched Couple
+                    </h2>
+                    <span style="display:inline-block;background:rgba(168,195,160,0.35);color:#d4ffd0;
+                                 font-size:0.72rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:9999px;
+                                 border:1px solid rgba(168,195,160,0.4);">
+                        ✓ Experienced Couple
+                    </span>
+                </div>
+            </div>
+
+            <!-- Anonymous attributes -->
+            <div style="padding:2rem;">
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;">
+
+                    <div style="background:#f9f7fc;border-radius:0.875rem;padding:1rem;">
+                        <p style="font-size:0.72rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem;">Years Together</p>
+                        <p class="font-heading font-semibold text-deep-plum" style="font-size:1.1rem;"
+                           th:text="|${couple.yearsMarried} years|">Years</p>
+                    </div>
+
+                    <div th:if="${couple.city != null and !couple.city.isBlank()}"
+                         style="background:#f9f7fc;border-radius:0.875rem;padding:1rem;">
+                        <p style="font-size:0.72rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem;">📍 City</p>
+                        <p class="font-heading font-semibold text-deep-plum" style="font-size:1.1rem;"
+                           th:text="${couple.city}">City</p>
+                    </div>
+
+                    <div th:if="${couple.profession != null and !couple.profession.isBlank()}"
+                         style="background:#f9f7fc;border-radius:0.875rem;padding:1rem;">
+                        <p style="font-size:0.72rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem;">💼 Profession</p>
+                        <p class="font-heading font-semibold text-deep-plum" style="font-size:1rem;"
+                           th:text="${couple.profession}">Profession</p>
+                    </div>
+
+                    <div style="background:#f9f7fc;border-radius:0.875rem;padding:1rem;">
+                        <p style="font-size:0.72rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.3rem;">Experience</p>
+                        <p class="font-heading font-semibold text-deep-plum" style="font-size:1rem;">Married couple</p>
+                    </div>
+
+                </div>
+
+                <!-- Strengths tags -->
+                <div th:if="${!couple.strengthTags.isEmpty()}" style="margin-bottom:1.5rem;">
+                    <p style="font-size:0.75rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.6rem;">
+                        💬 Can help with
+                    </p>
+                    <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+                        <span th:each="tag : ${couple.strengthTags}"
+                              th:text="${tag}"
+                              class="tag-pill">tag</span>
+                    </div>
+                </div>
+
+                <!-- Bio excerpt -->
+                <div th:if="${bioExcerpt != null and !bioExcerpt.isBlank()}"
+                     style="background:rgba(247,200,200,0.12);border-left:3px solid #F7C8C8;
+                            border-radius:0 0.75rem 0.75rem 0;padding:1rem 1.25rem;margin-bottom:1.75rem;">
+                    <p style="color:#4b5563;font-style:italic;font-size:0.925rem;line-height:1.7;"
+                       th:text='|"${bioExcerpt}"|'>Excerpt</p>
+                </div>
+
+                <!-- CTAs -->
+                <a th:href="@{/couple/{id}(id=${couple.id})}" class="btn-primary"
+                   style="display:block;text-align:center;width:100%;margin-bottom:0.875rem;">
+                    Book a Conversation →
+                </a>
+
+                <div style="border-top:1px solid rgba(90,62,91,0.08);padding-top:1.25rem;margin-top:0.5rem;text-align:center;">
+                    <p style="color:#9ca3af;font-size:0.85rem;margin-bottom:0.6rem;">Not the right fit?</p>
+                    <a th:href="@{/accounts/profile-setup}" class="btn-outline"
+                       style="font-size:0.875rem;padding:0.6rem 1.5rem;">
+                        Update Profile &amp; Re-run Matching
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</th:block>
+</body>
+</html>

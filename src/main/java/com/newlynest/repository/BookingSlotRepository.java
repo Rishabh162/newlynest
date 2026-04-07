@@ -13,4 +13,6 @@ public interface BookingSlotRepository extends JpaRepository<BookingSlot, Long> 
     List<BookingSlot> findByExperiencedCouple(CoupleProfile couple);
     boolean existsByExperiencedCoupleAndDateAndTimeSlot(CoupleProfile couple, LocalDate date, String timeSlot);
     List<BookingSlot> findByExperiencedCoupleAndDate(CoupleProfile couple, LocalDate date);
+    List<BookingSlot> findByRequestingUserAndDateGreaterThanEqualOrderByDateAscTimeSlotAsc(User user, LocalDate from);
+    List<BookingSlot> findByRequestingUserAndDateBeforeOrderByDateDescTimeSlotDesc(User user, LocalDate before);
 }

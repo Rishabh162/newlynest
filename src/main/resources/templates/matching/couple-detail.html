@@ -9,55 +9,69 @@
 
     <div class="max-w-5xl mx-auto py-10 px-4">
 
-        <a th:href="@{/dashboard}"
-           class="inline-block text-deep-plum text-sm font-medium mb-6">
-            &larr; Back to Dashboard
+        <a th:href="@{/match/result}"
+           style="display:inline-flex;align-items:center;gap:0.4rem;color:#5A3E5B;font-size:0.875rem;font-weight:500;text-decoration:none;margin-bottom:1.75rem;transition:opacity 0.15s;"
+           onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+            &larr; Back to Match
         </a>
 
-        <div class="grid grid-cols-1 gap-8" style="grid-template-columns: 3fr 2fr;" id="detail-grid">
+        <div style="display:grid;grid-template-columns:3fr 2fr;gap:1.5rem;" id="detail-grid">
 
             <!-- Profile section -->
-            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
-                <div class="bg-deep-plum p-8 flex items-center" style="gap:1.5rem;">
-                    <div class="bg-yellow-300 rounded-full flex items-center justify-center flex-shrink-0"
-                         style="width:5rem;height:5rem;">
-                        <span class="font-heading text-deep-plum font-bold text-2xl"
+            <div style="background:white;border-radius:1.25rem;overflow:hidden;box-shadow:0 2px 12px rgba(90,62,91,0.09);">
+
+                <!-- Profile header — plum gradient -->
+                <div class="plum-gradient" style="padding:2rem 2rem;display:flex;align-items:center;gap:1.5rem;">
+                    <div class="bg-soft-gold" style="width:4.5rem;height:4.5rem;border-radius:9999px;
+                                display:flex;align-items:center;justify-content:center;flex-shrink:0;
+                                border:2.5px solid rgba(255,255,255,0.35);">
+                        <span class="font-heading font-bold text-deep-plum" style="font-size:1.4rem;"
                               th:text="${profile.initials}">AB</span>
                     </div>
                     <div>
-                        <h1 class="font-heading text-white text-2xl font-bold"
-                            th:text="|${profile.user.firstName} and ${profile.partnerName}|">Names</h1>
-                        <p class="text-purple-200 mt-1"
+                        <h1 class="font-heading font-bold text-white" style="font-size:1.4rem;line-height:1.25;">
+                            Your Matched Couple
+                        </h1>
+                        <p style="color:#d8b4fe;font-size:0.875rem;margin-top:0.3rem;"
                            th:text="|${profile.yearsMarried} years of marriage|">Years</p>
-                        <span class="inline-block mt-2 bg-green-200 text-green-900 text-xs font-semibold px-3 py-1 rounded-full">
-                            Experienced Couple
+                        <span style="display:inline-block;margin-top:0.6rem;background:rgba(168,195,160,0.35);
+                                     color:#d4ffd0;font-size:0.72rem;font-weight:600;
+                                     padding:0.25rem 0.75rem;border-radius:9999px;border:1px solid rgba(168,195,160,0.4);">
+                            ✓ Experienced Couple
                         </span>
                     </div>
                 </div>
 
-                <div class="p-8">
-                    <h2 class="font-heading text-xl font-semibold text-deep-plum mb-3">Our Story</h2>
-                    <p class="text-gray-600 leading-relaxed mb-6" th:text="${profile.bio}">Bio.</p>
+                <div style="padding:2rem;">
+                    <h2 class="font-heading font-semibold text-deep-plum" style="font-size:1.15rem;margin-bottom:0.75rem;">
+                        Our Story
+                    </h2>
+                    <p style="color:#4b5563;line-height:1.75;margin-bottom:1.75rem;font-size:0.925rem;"
+                       th:text="${profile.bio}">Bio.</p>
 
-                    <h2 class="font-heading text-xl font-semibold text-deep-plum mb-3">Areas of Strength</h2>
+                    <h2 class="font-heading font-semibold text-deep-plum" style="font-size:1.15rem;margin-bottom:0.75rem;">
+                        Areas of Strength
+                    </h2>
                     <div th:if="${not #lists.isEmpty(profile.strengthTags)}"
-                         class="flex flex-wrap" style="gap:0.5rem;">
+                         style="display:flex;flex-wrap:wrap;gap:0.5rem;">
                         <span th:each="tag : ${profile.strengthTags}"
                               th:text="${tag}"
-                              class="bg-green-100 text-green-800 text-sm px-4 py-1 rounded-full font-medium">tag</span>
+                              class="tag-pill">tag</span>
                     </div>
                     <p th:if="${#lists.isEmpty(profile.strengthTags)}"
-                       class="text-gray-400 text-sm italic">No areas listed yet.</p>
+                       style="color:#9ca3af;font-size:0.875rem;font-style:italic;">No areas listed yet.</p>
                 </div>
             </div>
 
             <!-- Booking section -->
-            <div class="bg-white rounded-2xl shadow-sm p-6">
-                <h2 class="font-heading text-xl font-semibold text-deep-plum mb-1">Book a Conversation</h2>
-                <p class="text-gray-400 text-sm mb-5">Choose a date and time that works for you</p>
+            <div style="background:white;border-radius:1.25rem;padding:1.75rem;box-shadow:0 2px 12px rgba(90,62,91,0.09);align-self:start;">
+                <h2 class="font-heading font-semibold text-deep-plum" style="font-size:1.15rem;margin-bottom:0.3rem;">
+                    📅 Book a Conversation
+                </h2>
+                <p style="color:#9ca3af;font-size:0.85rem;margin-bottom:1.5rem;">Choose a date and time that works for you</p>
 
                 <div th:if="${errorMessage}"
-                     class="bg-red-50 border border-red-300 text-red-700 rounded-lg px-4 py-3 text-sm mb-4"
+                     style="background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;border-radius:0.75rem;padding:0.75rem 1rem;font-size:0.875rem;margin-bottom:1.25rem;"
                      th:text="${errorMessage}">Error</div>
 
                 <form th:action="@{/couple/{id}/book(id=${profile.id})}"
@@ -65,40 +79,35 @@
                       method="post" novalidate>
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                        <input type="date" th:field="*{date}"
-                               class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"/>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block;font-size:0.875rem;font-weight:500;color:#374151;margin-bottom:0.4rem;">Date</label>
+                        <input type="date" th:field="*{date}" class="input-soft"/>
                         <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
-                           class="text-red-500 text-xs mt-1">Date error</p>
+                           style="color:#ef4444;font-size:0.75rem;margin-top:0.3rem;">Date error</p>
                     </div>
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Time Slot</label>
-                        <select th:field="*{timeSlot}"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white">
-                            <option value="">-- Select a time --</option>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block;font-size:0.875rem;font-weight:500;color:#374151;margin-bottom:0.4rem;">Time Slot</label>
+                        <select th:field="*{timeSlot}" class="input-soft">
+                            <option value="">— Select a time —</option>
                             <option th:each="slot : ${timeSlots}"
                                     th:value="${slot[0]}"
                                     th:text="${slot[1]}">Time</option>
                         </select>
                         <p th:if="${#fields.hasErrors('timeSlot')}" th:errors="*{timeSlot}"
-                           class="text-red-500 text-xs mt-1">Time error</p>
+                           style="color:#ef4444;font-size:0.75rem;margin-top:0.3rem;">Time error</p>
                     </div>
 
-                    <div class="mb-5">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
-                            Message <span class="text-gray-400 font-normal">(optional)</span>
+                    <div style="margin-bottom:1.5rem;">
+                        <label style="display:block;font-size:0.875rem;font-weight:500;color:#374151;margin-bottom:0.4rem;">
+                            Message <span style="color:#9ca3af;font-weight:400;">(optional)</span>
                         </label>
                         <textarea th:field="*{message}" rows="3"
                                   placeholder="Briefly share what you'd like to discuss..."
-                                  class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none"></textarea>
+                                  class="input-soft" style="resize:none;"></textarea>
                     </div>
 
-                    <button type="submit"
-                            class="w-full bg-deep-plum text-white py-3 rounded-lg font-semibold text-sm">
-                        Request Booking
-                    </button>
+                    <button type="submit" class="btn-submit">Request Booking</button>
                 </form>
             </div>
 

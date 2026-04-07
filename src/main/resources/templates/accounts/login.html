@@ -6,44 +6,56 @@
 <head><title>Log In to NewlyNest — Marriage Peer Support</title></head>
 <body>
 <th:block layout:fragment="content">
-    <div class="min-h-screen flex items-center justify-center py-12 px-4">
-        <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm">
-            <div class="text-center mb-8">
-                <h1 class="font-heading text-3xl font-bold text-deep-plum">Welcome back</h1>
-                <p class="text-gray-500 mt-2 text-sm">Log in to your NewlyNest account</p>
+
+    <!-- Decorative blobs -->
+    <div class="auth-blob"></div>
+    <div class="auth-blob-2"></div>
+
+    <div class="hero-gradient" style="min-height:calc(100vh - 4rem);display:flex;align-items:center;justify-content:center;padding:3rem 1.5rem;position:relative;">
+
+        <div style="background:white;border-radius:1.5rem;box-shadow:0 8px 32px rgba(90,62,91,0.12);
+                    padding:2.5rem 2rem;width:100%;max-width:26rem;position:relative;z-index:1;">
+
+            <!-- Header -->
+            <div style="text-align:center;margin-bottom:2rem;">
+                <p style="font-size:2.25rem;margin-bottom:0.75rem;">💍</p>
+                <h1 class="font-heading font-bold text-deep-plum" style="font-size:1.75rem;margin-bottom:0.4rem;">
+                    Welcome back
+                </h1>
+                <p style="color:#6b7280;font-size:0.9rem;">Log in to your NewlyNest account</p>
             </div>
 
+            <!-- Error -->
             <div th:if="${errorMessage}"
-                 class="bg-red-50 border border-red-300 text-red-700 rounded-lg px-4 py-3 text-sm mb-4"
+                 style="background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;border-radius:0.75rem;padding:0.75rem 1rem;font-size:0.875rem;margin-bottom:1.25rem;"
                  th:text="${errorMessage}">Error</div>
 
             <form th:action="@{/accounts/login}" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block;font-size:0.875rem;font-weight:500;color:#374151;margin-bottom:0.4rem;">Username</label>
                     <input type="text" name="username" placeholder="your_username" autofocus
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"/>
+                           class="input-soft"/>
                 </div>
 
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <div style="margin-bottom:1.75rem;">
+                    <label style="display:block;font-size:0.875rem;font-weight:500;color:#374151;margin-bottom:0.4rem;">Password</label>
                     <input type="password" name="password" placeholder="Password"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"/>
+                           class="input-soft"/>
                 </div>
 
-                <button type="submit"
-                        class="w-full bg-deep-plum text-white py-3 rounded-lg font-semibold text-sm">
-                    Log In
-                </button>
+                <button type="submit" class="btn-submit">Log In</button>
             </form>
 
-            <p class="text-center text-sm text-gray-500 mt-6">
+            <p style="text-align:center;font-size:0.875rem;color:#6b7280;margin-top:1.5rem;">
                 Don't have an account?
-                <a th:href="@{/accounts/signup}" class="text-deep-plum font-semibold">Sign up</a>
+                <a th:href="@{/accounts/signup}" class="text-deep-plum font-semibold" style="text-decoration:none;">Sign up free</a>
             </p>
+
         </div>
     </div>
+
 </th:block>
 </body>
 </html>

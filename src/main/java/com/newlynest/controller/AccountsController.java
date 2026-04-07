@@ -4,7 +4,9 @@ import com.newlynest.dto.CoupleProfileForm;
 import com.newlynest.dto.SignUpForm;
 import com.newlynest.model.CoupleProfile;
 import com.newlynest.model.User;
+import com.newlynest.model.Role;
 import com.newlynest.service.CoupleProfileService;
+import com.newlynest.service.MatchingService;
 import com.newlynest.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ public class AccountsController {
 
     @Autowired private UserService userService;
     @Autowired private CoupleProfileService coupleProfileService;
+    @Autowired private MatchingService matchingService;
     @Autowired private AuthenticationManager authenticationManager;
 
     @GetMapping("/signup")
@@ -91,8 +94,22 @@ public class AccountsController {
                                       BindingResult result,
                                       RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) return "accounts/profile-setup";
-        coupleProfileService.saveOrUpdate(currentUser, coupleProfileForm);
-        redirectAttributes.addFlashAttribute("successMessage", "Profile saved successfully!");
+
+        boolean hadMatch = matchingService.getActiveMatch(currentUser).isPresent();
+        CoupleProfile saved = coupleProfileService.saveOrUpdate(currentUser, coupleProfileForm);
+
+        // Clear any existing match whenever a NEW couple updates their profile
+        if (saved.getRole() == Role.NEW) {
+            matchingService.clearMatch(currentUser);
+            if (hadMatch) {
+                redirectAttributes.addFlashAttribute("successMessage",
+                        "Profile updated. Your previous match has been cleared — find your new match from the dashboard.");
+            } else {
+                redirectAttributes.addFlashAttribute("successMessage", "Profile saved! Head to the dashboard to find your match.");
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("successMessage", "Profile saved successfully!");
+        }
         return "redirect:/dashboard";
     }
 }

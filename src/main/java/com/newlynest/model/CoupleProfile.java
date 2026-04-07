@@ -34,6 +34,9 @@ public class CoupleProfile {
     private String bio;
 
     private String areasOfStrength;
+    private String city;
+    private String profession;
+    private String challengeAreas;
     private String avatarUrl;
 
     @Column(nullable = false)
@@ -52,6 +55,9 @@ public class CoupleProfile {
     public int getYearsMarried()         { return yearsMarried; }
     public String getBio()               { return bio; }
     public String getAreasOfStrength()   { return areasOfStrength; }
+    public String getCity()              { return city; }
+    public String getProfession()        { return profession; }
+    public String getChallengeAreas()    { return challengeAreas; }
     public String getAvatarUrl()         { return avatarUrl; }
     public boolean isAvailable()         { return available; }
     public LocalDateTime getCreatedAt()  { return createdAt; }
@@ -64,10 +70,21 @@ public class CoupleProfile {
     public void setYearsMarried(int yearsMarried)       { this.yearsMarried = yearsMarried; }
     public void setBio(String bio)                      { this.bio = bio; }
     public void setAreasOfStrength(String areas)        { this.areasOfStrength = areas; }
+    public void setCity(String city)                    { this.city = city; }
+    public void setProfession(String profession)        { this.profession = profession; }
+    public void setChallengeAreas(String areas)         { this.challengeAreas = areas; }
     public void setAvatarUrl(String avatarUrl)          { this.avatarUrl = avatarUrl; }
     public void setAvailable(boolean available)         { this.available = available; }
 
     // Helper methods
+    public List<String> getChallengeTags() {
+        if (challengeAreas == null || challengeAreas.isBlank()) return List.of();
+        return Arrays.stream(challengeAreas.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());
+    }
+
     public List<String> getStrengthTags() {
         if (areasOfStrength == null || areasOfStrength.isBlank()) return List.of();
         return Arrays.stream(areasOfStrength.split(","))

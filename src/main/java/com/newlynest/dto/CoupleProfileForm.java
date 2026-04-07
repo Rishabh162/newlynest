@@ -20,6 +20,9 @@ public class CoupleProfileForm {
     private String bio;
 
     private String areasOfStrength;
+    private String city;
+    private String profession;
+    private String challengeAreas;
     private String avatarUrl;
     private boolean available = true;
 
@@ -37,6 +40,15 @@ public class CoupleProfileForm {
 
     public String getAreasOfStrength()          { return areasOfStrength; }
     public void setAreasOfStrength(String v)    { this.areasOfStrength = v; }
+
+    public String getCity()                     { return city; }
+    public void setCity(String v)               { this.city = v; }
+
+    public String getProfession()               { return profession; }
+    public void setProfession(String v)         { this.profession = v; }
+
+    public String getChallengeAreas()           { return challengeAreas; }
+    public void setChallengeAreas(String v)     { this.challengeAreas = v; }
 
     public String getAvatarUrl()                { return avatarUrl; }
     public void setAvatarUrl(String v)          { this.avatarUrl = v; }

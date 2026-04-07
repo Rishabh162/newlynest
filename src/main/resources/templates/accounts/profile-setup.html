@@ -6,82 +6,129 @@
 <head><title>Set Up Your Couple Profile — NewlyNest</title></head>
 <body>
 <th:block layout:fragment="content">
-    <div class="max-w-2xl mx-auto py-12 px-4">
-        <div class="bg-white rounded-2xl shadow-lg p-8">
-            <div class="mb-8">
-                <h1 class="font-heading text-3xl font-bold text-deep-plum"
-                    th:text="${isEdit} ? 'Update Your Profile' : 'Set Up Your Profile'">Setup</h1>
-                <p class="text-gray-500 mt-2">Tell us about you and your partner</p>
-            </div>
 
-            <form th:action="@{/accounts/profile-setup}" th:object="${coupleProfileForm}" method="post" novalidate>
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <div class="hero-gradient" style="padding:3rem 1.5rem;min-height:calc(100vh - 4rem);">
+        <div style="max-width:36rem;margin:0 auto;">
+            <div style="background:white;border-radius:1.5rem;box-shadow:0 8px 32px rgba(90,62,91,0.10);padding:2.5rem 2rem;">
 
-                <!-- Role selection -->
-                <div class="mb-6">
-                    <label class="block text-sm font-semibold text-gray-700 mb-3">We are a...</label>
-                    <div class="grid grid-cols-2 gap-4">
-                        <label class="cursor-pointer">
-                            <input type="radio" th:field="*{role}" value="NEW" class="sr-only peer"/>
-                            <div class="border-2 border-gray-200 rounded-xl p-4 text-center peer-checked:border-deep-plum peer-checked:bg-purple-50">
-                                <p class="text-2xl mb-2">New</p>
-                                <p class="font-semibold text-deep-plum text-sm">Newly Married Couple</p>
-                                <p class="text-gray-400 text-xs mt-1">Looking for guidance</p>
-                            </div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" th:field="*{role}" value="EXPERIENCED" class="sr-only peer"/>
-                            <div class="border-2 border-gray-200 rounded-xl p-4 text-center peer-checked:border-deep-plum peer-checked:bg-purple-50">
-                                <p class="text-2xl mb-2">Exp</p>
-                                <p class="font-semibold text-deep-plum text-sm">Experienced Couple</p>
-                                <p class="text-gray-400 text-xs mt-1">Ready to share wisdom</p>
-                            </div>
-                        </label>
+                <div style="margin-bottom:2rem;">
+                    <p style="font-size:1.75rem;margin-bottom:0.6rem;">✨</p>
+                    <h1 class="font-heading font-bold text-deep-plum" style="font-size:1.75rem;margin-bottom:0.4rem;"
+                        th:text="${isEdit} ? 'Update Your Profile' : 'Set Up Your Profile'">Setup</h1>
+                    <p style="color:#6b7280;font-size:0.9rem;">Tell us about you and your partner</p>
+                </div>
+
+                <form th:action="@{/accounts/profile-setup}" th:object="${coupleProfileForm}" method="post" novalidate>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                    <!-- Role selection -->
+                    <div style="margin-bottom:1.75rem;">
+                        <label style="display:block;font-size:0.875rem;font-weight:600;color:#374151;margin-bottom:0.75rem;">We are a...</label>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;">
+                            <label style="cursor:pointer;">
+                                <input type="radio" th:field="*{role}" value="NEW" class="sr-only peer"/>
+                                <div style="border:2px solid #e5e0eb;border-radius:1rem;padding:1.25rem 1rem;text-align:center;
+                                            transition:border-color 0.15s,background 0.15s;"
+                                     class="peer-checked:border-deep-plum peer-checked:bg-purple-50">
+                                    <p style="font-size:1.75rem;margin-bottom:0.4rem;">🌱</p>
+                                    <p style="font-weight:600;color:#5A3E5B;font-size:0.875rem;">Newly Married</p>
+                                    <p style="color:#9ca3af;font-size:0.75rem;margin-top:0.2rem;">Looking for guidance</p>
+                                </div>
+                            </label>
+                            <label style="cursor:pointer;">
+                                <input type="radio" th:field="*{role}" value="EXPERIENCED" class="sr-only peer"/>
+                                <div style="border:2px solid #e5e0eb;border-radius:1rem;padding:1.25rem 1rem;text-align:center;
+                                            transition:border-color 0.15s,background 0.15s;"
+                                     class="peer-checked:border-deep-plum peer-checked:bg-purple-50">
+                                    <p style="font-size:1.75rem;margin-bottom:0.4rem;">⭐</p>
+                                    <p style="font-weight:600;color:#5A3E5B;font-size:0.875rem;">Experienced Couple</p>
+                                    <p style="color:#9ca3af;font-size:0.75rem;margin-top:0.2rem;">Ready to share wisdom</p>
+                                </div>
+                            </label>
+                        </div>
+                        <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}"
+                           style="color:#ef4444;font-size:0.75rem;margin-top:0.5rem;">Error</p>
                     </div>
-                    <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}"
-                       class="text-red-500 text-xs mt-2">Error</p>
-                </div>
 
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Partner's Full Name</label>
-                    <input type="text" th:field="*{partnerName}" placeholder="e.g. Raj Kumar"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"/>
-                    <p th:if="${#fields.hasErrors('partnerName')}" th:errors="*{partnerName}"
-                       class="text-red-500 text-xs mt-1">Error</p>
-                </div>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block;font-size:0.875rem;font-weight:500;color:#374151;margin-bottom:0.4rem;">Partner's Full Name</label>
+                        <input type="text" th:field="*{partnerName}" placeholder="e.g. Raj Kumar" class="input-soft"/>
+                        <p th:if="${#fields.hasErrors('partnerName')}" th:errors="*{partnerName}"
+                           style="color:#ef4444;font-size:0.75rem;margin-top:0.3rem;">Error</p>
+                    </div>
 
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Years Married</label>
-                    <input type="number" th:field="*{yearsMarried}" min="0" max="75" placeholder="e.g. 3"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"/>
-                    <p th:if="${#fields.hasErrors('yearsMarried')}" th:errors="*{yearsMarried}"
-                       class="text-red-500 text-xs mt-1">Error</p>
-                </div>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block;font-size:0.875rem;font-weight:500;color:#374151;margin-bottom:0.4rem;">Years Married</label>
+                        <input type="number" th:field="*{yearsMarried}" min="0" max="75" placeholder="e.g. 3" class="input-soft"/>
+                        <p th:if="${#fields.hasErrors('yearsMarried')}" th:errors="*{yearsMarried}"
+                           style="color:#ef4444;font-size:0.75rem;margin-top:0.3rem;">Error</p>
+                    </div>
 
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Your Story</label>
-                    <textarea th:field="*{bio}" rows="4"
-                              placeholder="Tell other couples a bit about your journey together..."
-                              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none"></textarea>
-                    <p th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"
-                       class="text-red-500 text-xs mt-1">Error</p>
-                </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:1rem;">
+                        <div>
+                            <label style="display:block;font-size:0.875rem;font-weight:500;color:#374151;margin-bottom:0.4rem;">City <span style="color:#9ca3af;font-weight:400;">(optional)</span></label>
+                            <input type="text" th:field="*{city}" placeholder="e.g. Mumbai" class="input-soft"/>
+                        </div>
+                        <div>
+                            <label style="display:block;font-size:0.875rem;font-weight:500;color:#374151;margin-bottom:0.4rem;">Profession <span style="color:#9ca3af;font-weight:400;">(optional)</span></label>
+                            <input type="text" th:field="*{profession}" placeholder="e.g. Software Engineer" class="input-soft"/>
+                        </div>
+                    </div>
 
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
-                        Areas of Strength <span class="text-gray-400 font-normal">(comma-separated)</span>
-                    </label>
-                    <input type="text" th:field="*{areasOfStrength}"
-                           placeholder="e.g. communication, finances, parenting"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"/>
-                </div>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block;font-size:0.875rem;font-weight:500;color:#374151;margin-bottom:0.4rem;">Your Story</label>
+                        <textarea th:field="*{bio}" rows="4"
+                                  placeholder="Tell other couples a bit about your journey together..."
+                                  class="input-soft" style="resize:none;"></textarea>
+                        <p th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"
+                           style="color:#ef4444;font-size:0.75rem;margin-top:0.3rem;">Error</p>
+                    </div>
 
-                <button type="submit"
-                        class="w-full bg-deep-plum text-white py-3 rounded-lg font-semibold text-sm"
-                        th:text="${isEdit} ? 'Save Changes' : 'Complete Profile'">Submit</button>
-            </form>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block;font-size:0.875rem;font-weight:500;color:#374151;margin-bottom:0.4rem;">
+                            Areas of Strength <span style="color:#9ca3af;font-weight:400;">(comma-separated)</span>
+                        </label>
+                        <input type="text" th:field="*{areasOfStrength}"
+                               placeholder="e.g. communication, finances, parenting"
+                               class="input-soft"/>
+                    </div>
+
+                    <!-- Challenge areas — shown only when NEW role is selected -->
+                    <div id="challengeAreasSection" style="margin-bottom:2rem;display:none;">
+                        <label style="display:block;font-size:0.875rem;font-weight:500;color:#374151;margin-bottom:0.4rem;">
+                            What would you like to talk about? <span style="color:#9ca3af;font-weight:400;">(comma-separated)</span>
+                        </label>
+                        <input type="text" th:field="*{challengeAreas}"
+                               placeholder="e.g. finances, in-laws, work-life balance"
+                               class="input-soft"/>
+                        <p style="color:#9ca3af;font-size:0.75rem;margin-top:0.3rem;">
+                            Used to find experienced couples who can best help with your specific challenges.
+                        </p>
+                    </div>
+
+                    <button type="submit" class="btn-submit"
+                            th:text="${isEdit} ? 'Save Changes' : 'Complete Profile ✓'">Submit</button>
+                </form>
+
+            </div>
         </div>
     </div>
+
+<script>
+    function updateRoleFields() {
+        const newRadio = document.querySelector('input[type="radio"][value="NEW"]');
+        const isNew = newRadio && newRadio.checked;
+        const challengeSection = document.getElementById('challengeAreasSection');
+        if (challengeSection) {
+            challengeSection.style.display = isNew ? 'block' : 'none';
+        }
+    }
+    document.querySelectorAll('input[type="radio"][name="role"]').forEach(r => {
+        r.addEventListener('change', updateRoleFields);
+    });
+    // Run on page load to handle pre-selected values
+    updateRoleFields();
+</script>
 </th:block>
 </body>
 </html>

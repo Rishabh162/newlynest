@@ -21,93 +21,135 @@
 <body>
 <th:block layout:fragment="content">
 
-    <!-- ── Hero ─────────────────────────────────────────────── -->
-    <section style="background:linear-gradient(135deg,#5A3E5B,#3b2c3c);color:white;padding:6rem 1rem;">
-        <div class="max-w-4xl mx-auto text-center">
+    <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+    <section class="hero-gradient" style="padding:5rem 1.5rem 4rem;position:relative;overflow:hidden;min-height:85vh;display:flex;align-items:center;">
 
-            <h1 class="font-heading text-5xl font-bold mb-6" style="line-height:1.2;">
+        <!-- Decorative background blobs -->
+        <div style="position:absolute;top:-6rem;right:-6rem;width:32rem;height:32rem;
+                    background:radial-gradient(circle,rgba(247,200,200,0.3),transparent 68%);
+                    border-radius:50%;pointer-events:none;"></div>
+        <div style="position:absolute;bottom:-4rem;left:-4rem;width:22rem;height:22rem;
+                    background:radial-gradient(circle,rgba(168,195,160,0.22),transparent 68%);
+                    border-radius:50%;pointer-events:none;"></div>
+
+        <!-- Floating snippet cards (Jeton-inspired, hidden on small screens) -->
+        <div class="hero-float-card" style="top:12%;left:4%;display:none;" id="float1">
+            💬 "12 years and counting"
+        </div>
+        <div class="hero-float-card" style="top:18%;right:5%;display:none;" id="float2">
+            ❤️ Judgment-free advice
+        </div>
+        <div class="hero-float-card" style="bottom:22%;right:8%;display:none;" id="float3">
+            ✨ 500+ couples connected
+        </div>
+
+        <div class="max-w-3xl mx-auto text-center" style="position:relative;z-index:1;">
+
+            <!-- Decorative emoji accent -->
+            <div style="font-size:2.5rem;margin-bottom:1.25rem;letter-spacing:0.5rem;">💍 🌸 ✨</div>
+
+            <h1 class="font-heading font-bold text-deep-plum" style="font-size:clamp(2.5rem,5vw,4rem);line-height:1.18;margin-bottom:1.5rem;">
                 Marriage is a journey.<br/>
                 <span style="color:#D6B77A;">You don't have to walk it alone.</span>
             </h1>
 
-            <p style="font-size:1.25rem;color:#e5e7eb;margin-bottom:2.5rem;
-                      max-width:36rem;margin-left:auto;margin-right:auto;">
-                NewlyNest connects newly married couples with experienced ones for real,
-                judgment-free conversations about life together.
+            <p style="font-size:1.2rem;color:#6b7280;margin-bottom:2.5rem;max-width:32rem;margin-left:auto;margin-right:auto;line-height:1.7;font-weight:300;">
+                NewlyNest connects newly married couples with experienced ones
+                for real, judgment-free conversations about life together.
             </p>
 
             <!-- Guest CTAs -->
             <div th:if="${!isAuthenticated}"
-                 style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-                <a th:href="@{/accounts/signup}"
-                   style="background:#D6B77A;color:#5A3E5B;padding:1rem 2rem;
-                          border-radius:9999px;font-weight:600;font-size:1.125rem;text-decoration:none;">
+                 style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem;">
+                <a th:href="@{/accounts/signup}" class="btn-primary">
                     Get Started Free
                 </a>
-                <a th:href="@{/accounts/login}"
-                   style="border:2px solid white;color:white;padding:1rem 2rem;
-                          border-radius:9999px;font-weight:600;font-size:1.125rem;text-decoration:none;">
+                <a th:href="@{/accounts/login}" class="btn-outline">
                     Log In
                 </a>
             </div>
 
-            <!-- Logged-in CTA -->
+            <!-- Logged-in CTAs -->
             <div th:if="${isAuthenticated}"
-                 style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-                <a th:href="@{/dashboard}"
-                   style="background:#D6B77A;color:#5A3E5B;padding:1rem 2rem;
-                          border-radius:9999px;font-weight:600;font-size:1.125rem;text-decoration:none;">
-                    Go to Dashboard
+                 style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem;">
+                <a th:href="@{/dashboard}" class="btn-primary">
+                    Browse Couples
                 </a>
-                <a th:href="@{/accounts/profile-setup}"
-                   style="border:2px solid white;color:white;padding:1rem 2rem;
-                          border-radius:9999px;font-weight:600;font-size:1.125rem;text-decoration:none;">
+                <a th:href="@{/accounts/profile-setup}" class="btn-outline">
                     My Profile
                 </a>
+            </div>
+
+            <!-- Trust stats row -->
+            <div style="display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;">
+                <span style="color:#9ca3af;font-size:0.85rem;display:flex;align-items:center;gap:0.4rem;">
+                    <span style="color:#A8C3A0;font-weight:700;">✓</span> 500+ Couples Connected
+                </span>
+                <span style="color:#9ca3af;font-size:0.85rem;display:flex;align-items:center;gap:0.4rem;">
+                    <span style="color:#A8C3A0;font-weight:700;">✓</span> Judgment-Free
+                </span>
+                <span style="color:#9ca3af;font-size:0.85rem;display:flex;align-items:center;gap:0.4rem;">
+                    <span style="color:#A8C3A0;font-weight:700;">✓</span> 100% Free to Join
+                </span>
             </div>
 
         </div>
     </section>
 
-    <!-- ── How It Works ──────────────────────────────────────── -->
-    <section style="padding:5rem 1rem;background:white;">
+    <!-- ── How It Works ───────────────────────────────────────────────────── -->
+    <section style="padding:5.5rem 1.5rem;background:white;">
         <div class="max-w-5xl mx-auto">
-            <h2 class="font-heading text-4xl font-bold text-deep-plum text-center mb-4">How It Works</h2>
-            <p style="text-align:center;color:#6b7280;margin-bottom:3.5rem;font-size:1.125rem;">
-                Three simple steps to a stronger marriage
-            </p>
 
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem;">
+            <div class="text-center reveal" style="margin-bottom:4rem;">
+                <h2 class="font-heading font-bold text-deep-plum" style="font-size:clamp(1.75rem,3vw,2.5rem);margin-bottom:0.75rem;">
+                    How It Works
+                </h2>
+                <p style="color:#6b7280;font-size:1.05rem;">Three simple steps to a stronger marriage</p>
+            </div>
 
-                <div style="text-align:center;padding:1.5rem;border-radius:1rem;background:#F4EFEA;">
-                    <div style="width:4rem;height:4rem;background:#F7C8C8;border-radius:9999px;
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;position:relative;">
+
+                <!-- Step 1 -->
+                <div class="reveal" style="text-align:center;padding:2rem 1.5rem;border-radius:1.25rem;background:#F4EFEA;">
+                    <div style="font-size:2rem;margin-bottom:0.5rem;">👤</div>
+                    <div class="plum-gradient" style="width:3.5rem;height:3.5rem;border-radius:9999px;
                                 display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
-                        <span class="font-heading text-2xl font-bold text-deep-plum">1</span>
+                        <span class="font-heading font-bold text-white" style="font-size:1.2rem;">1</span>
                     </div>
-                    <h3 class="font-heading text-xl font-semibold text-deep-plum mb-3">Create Your Profile</h3>
-                    <p style="color:#4b5563;">
+                    <h3 class="font-heading font-semibold text-deep-plum" style="font-size:1.15rem;margin-bottom:0.75rem;">
+                        Create Your Profile
+                    </h3>
+                    <p style="color:#4b5563;font-size:0.9rem;line-height:1.65;">
                         Tell us about you and your partner — your story and what you'd like to talk about.
                     </p>
                 </div>
 
-                <div style="text-align:center;padding:1.5rem;border-radius:1rem;background:#F4EFEA;">
-                    <div style="width:4rem;height:4rem;background:#A8C3A0;border-radius:9999px;
+                <!-- Step 2 -->
+                <div class="reveal" style="text-align:center;padding:2rem 1.5rem;border-radius:1.25rem;background:#F4EFEA;">
+                    <div style="font-size:2rem;margin-bottom:0.5rem;">🔍</div>
+                    <div class="plum-gradient" style="width:3.5rem;height:3.5rem;border-radius:9999px;
                                 display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
-                        <span class="font-heading text-2xl font-bold text-deep-plum">2</span>
+                        <span class="font-heading font-bold text-white" style="font-size:1.2rem;">2</span>
                     </div>
-                    <h3 class="font-heading text-xl font-semibold text-deep-plum mb-3">Browse Couples</h3>
-                    <p style="color:#4b5563;">
+                    <h3 class="font-heading font-semibold text-deep-plum" style="font-size:1.15rem;margin-bottom:0.75rem;">
+                        Browse Couples
+                    </h3>
+                    <p style="color:#4b5563;font-size:0.9rem;line-height:1.65;">
                         Explore profiles of experienced couples who've been where you are.
                     </p>
                 </div>
 
-                <div style="text-align:center;padding:1.5rem;border-radius:1rem;background:#F4EFEA;">
-                    <div style="width:4rem;height:4rem;background:#D6B77A;border-radius:9999px;
+                <!-- Step 3 -->
+                <div class="reveal" style="text-align:center;padding:2rem 1.5rem;border-radius:1.25rem;background:#F4EFEA;">
+                    <div style="font-size:2rem;margin-bottom:0.5rem;">💬</div>
+                    <div class="plum-gradient" style="width:3.5rem;height:3.5rem;border-radius:9999px;
                                 display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
-                        <span class="font-heading text-2xl font-bold text-deep-plum">3</span>
+                        <span class="font-heading font-bold text-white" style="font-size:1.2rem;">3</span>
                     </div>
-                    <h3 class="font-heading text-xl font-semibold text-deep-plum mb-3">Book a Conversation</h3>
-                    <p style="color:#4b5563;">
+                    <h3 class="font-heading font-semibold text-deep-plum" style="font-size:1.15rem;margin-bottom:0.75rem;">
+                        Book a Conversation
+                    </h3>
+                    <p style="color:#4b5563;font-size:0.9rem;line-height:1.65;">
                         Choose a time and have an open conversation with a couple who gets it.
                     </p>
                 </div>
@@ -116,23 +158,27 @@
         </div>
     </section>
 
-    <!-- ── Testimonials ──────────────────────────────────────── -->
-    <section style="padding:5rem 1rem;background:#F4EFEA;">
+    <!-- ── Testimonials ───────────────────────────────────────────────────── -->
+    <section style="padding:5.5rem 1.5rem;background:#F4EFEA;">
         <div class="max-w-5xl mx-auto">
-            <h2 class="font-heading text-4xl font-bold text-deep-plum text-center mb-12">
+
+            <h2 class="font-heading font-bold text-deep-plum text-center reveal"
+                style="font-size:clamp(1.75rem,3vw,2.5rem);margin-bottom:3rem;">
                 What Couples Are Saying
             </h2>
+
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
 
-                <div style="background:white;border-radius:1rem;padding:2rem;box-shadow:0 1px 3px rgba(0,0,0,.08);">
-                    <p style="color:#374151;font-style:italic;line-height:1.7;margin-bottom:1.5rem;">
+                <div class="glass-card reveal" style="border-radius:1.25rem;padding:2rem;box-shadow:0 2px 12px rgba(90,62,91,0.08);">
+                    <p style="color:#D6B77A;font-size:1.1rem;letter-spacing:0.05em;margin-bottom:1rem;">★★★★★</p>
+                    <p style="color:#374151;font-style:italic;line-height:1.75;margin-bottom:1.5rem;font-size:0.95rem;">
                         "Talking to Priya and Vikram for just one hour gave us more practical tools
                         than anything we'd tried before."
                     </p>
                     <div style="display:flex;align-items:center;gap:0.75rem;">
-                        <div style="width:2.5rem;height:2.5rem;background:#F7C8C8;border-radius:9999px;
-                                    display:flex;align-items:center;justify-content:center;">
-                            <span style="color:#5A3E5B;font-weight:700;font-size:0.875rem;">KR</span>
+                        <div class="bg-soft-rose" style="width:2.5rem;height:2.5rem;border-radius:9999px;
+                                    display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <span style="color:#5A3E5B;font-weight:700;font-size:0.8rem;">KR</span>
                         </div>
                         <div>
                             <p style="font-weight:600;color:#5A3E5B;font-size:0.875rem;">Kavya &amp; Rohit</p>
@@ -141,15 +187,16 @@
                     </div>
                 </div>
 
-                <div style="background:white;border-radius:1rem;padding:2rem;box-shadow:0 1px 3px rgba(0,0,0,.08);">
-                    <p style="color:#374151;font-style:italic;line-height:1.7;margin-bottom:1.5rem;">
+                <div class="glass-card reveal" style="border-radius:1.25rem;padding:2rem;box-shadow:0 2px 12px rgba(90,62,91,0.08);">
+                    <p style="color:#D6B77A;font-size:1.1rem;letter-spacing:0.05em;margin-bottom:1rem;">★★★★★</p>
+                    <p style="color:#374151;font-style:italic;line-height:1.75;margin-bottom:1.5rem;font-size:0.95rem;">
                         "Maya and David helped us see our money fights weren't about money — they were
                         about trust. Game changer."
                     </p>
                     <div style="display:flex;align-items:center;gap:0.75rem;">
-                        <div style="width:2.5rem;height:2.5rem;background:#A8C3A0;border-radius:9999px;
-                                    display:flex;align-items:center;justify-content:center;">
-                            <span style="color:#5A3E5B;font-weight:700;font-size:0.875rem;">TS</span>
+                        <div class="bg-sage-green" style="width:2.5rem;height:2.5rem;border-radius:9999px;
+                                    display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <span style="color:#2d5a27;font-weight:700;font-size:0.8rem;">TS</span>
                         </div>
                         <div>
                             <p style="font-weight:600;color:#5A3E5B;font-size:0.875rem;">Tanvi &amp; Siddharth</p>
@@ -162,29 +209,32 @@
         </div>
     </section>
 
-    <!-- ── CTA Banner ────────────────────────────────────────── -->
-    <section style="background:#5A3E5B;padding:4rem 1rem;text-align:center;">
-        <h2 class="font-heading text-4xl font-bold text-white mb-4">Ready to connect?</h2>
-        <p style="color:#d1d5db;font-size:1.125rem;margin-bottom:2rem;">
-            Join hundreds of couples navigating marriage together.
-        </p>
+    <!-- ── CTA Banner ────────────────────────────────────────────────────── -->
+    <section class="dot-pattern" style="background:radial-gradient(ellipse at center,#6d4c6e,#5A3E5B);padding:5rem 1.5rem;text-align:center;">
+        <div class="max-w-2xl mx-auto reveal">
+            <p style="font-size:2rem;margin-bottom:1rem;">💌</p>
+            <h2 class="font-heading font-bold text-white" style="font-size:clamp(1.75rem,3vw,2.5rem);margin-bottom:1rem;">
+                Ready to connect?
+            </h2>
+            <p style="color:#d1d5db;font-size:1.05rem;margin-bottom:2.5rem;line-height:1.6;">
+                Join hundreds of couples navigating marriage together — it's free, warm, and judgment-free.
+            </p>
 
-        <!-- Guest -->
-        <a th:if="${!isAuthenticated}"
-           th:href="@{/accounts/signup}"
-           style="background:#D6B77A;color:#5A3E5B;padding:1rem 2.5rem;border-radius:9999px;
-                  font-weight:600;font-size:1.125rem;text-decoration:none;display:inline-block;">
-            Create Your Free Account
-        </a>
-
-        <!-- Logged-in -->
-        <a th:if="${isAuthenticated}"
-           th:href="@{/dashboard}"
-           style="background:#D6B77A;color:#5A3E5B;padding:1rem 2.5rem;border-radius:9999px;
-                  font-weight:600;font-size:1.125rem;text-decoration:none;display:inline-block;">
-            Browse Couples Now
-        </a>
+            <a th:if="${!isAuthenticated}" th:href="@{/accounts/signup}" class="btn-secondary">
+                Create Your Free Account
+            </a>
+            <a th:if="${isAuthenticated}" th:href="@{/dashboard}" class="btn-secondary">
+                Browse Couples Now
+            </a>
+        </div>
     </section>
+
+    <!-- Show floating cards on larger screens -->
+    <style>
+        @media (min-width: 900px) {
+            #float1, #float2, #float3 { display: block !important; }
+        }
+    </style>
 
 </th:block>
 </body>

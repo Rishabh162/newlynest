@@ -34,29 +34,30 @@ public class DataSeeder implements ApplicationRunner {
 
         seed("anita", "Anita", "Kumar", "anita@example.com", "Raj Kumar", 12,
                 "After 12 years together we've navigated cultural differences, career changes, and raising two kids. We're here to share what worked for us and what didn't.",
-                "communication, cultural differences, career balance");
+                "communication, cultural differences, career balance", "Mumbai", "Software Engineer");
 
         seed("maya", "Maya", "Patel", "maya@example.com", "David Patel", 8,
                 "Combining two very different financial upbringings taught us a lot. We're passionate about helping couples build a shared money mindset early.",
-                "finances, budgeting, shared goals");
+                "finances, budgeting, work-life balance", "Bangalore", "Doctor");
 
         seed("sarah", "Sarah", "Thompson", "sarah@example.com", "James Thompson", 15,
                 "Raising kids while keeping your marriage strong is hard. After 15 years and three children, we've learned to protect our partnership above all else.",
-                "parenting, work-life balance, intimacy");
+                "parenting, work-life balance, communication", "Delhi", "Teacher");
 
         seed("priya", "Priya", "Sharma", "priya@example.com", "Vikram Sharma", 6,
                 "Blending families with strong in-laws takes real skill. We've figured out how to set loving boundaries while keeping everyone close.",
-                "in-laws, boundaries, conflict resolution");
+                "in-laws, boundaries, conflict resolution", "Mumbai", "Entrepreneur");
 
         seed("lisa", "Lisa", "Chen", "lisa@example.com", "Michael Chen", 10,
                 "An intercultural marriage means navigating two sets of traditions, holidays, and expectations. We make it work by leading with curiosity and humour.",
-                "intercultural marriage, communication, empathy");
+                "communication, conflict resolution, work-life balance", "Pune", "HR Manager");
 
         log.info("Seeding complete — 5 couples added.");
     }
 
     private void seed(String username, String firstName, String lastName, String email,
-                      String partnerName, int yearsMarried, String bio, String strengths) {
+                      String partnerName, int yearsMarried, String bio, String strengths,
+                      String city, String profession) {
         if (userRepository.existsByUsername(username)) return;
 
         User user = new User();
@@ -74,6 +75,8 @@ public class DataSeeder implements ApplicationRunner {
         profile.setYearsMarried(yearsMarried);
         profile.setBio(bio);
         profile.setAreasOfStrength(strengths);
+        profile.setCity(city);
+        profile.setProfession(profession);
         profile.setAvailable(true);
         profileRepository.save(profile);
     }

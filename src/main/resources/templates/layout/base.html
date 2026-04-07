@@ -56,11 +56,12 @@
 </head>
 <body class="bg-warm-beige font-body min-h-screen flex flex-col">
 
-<!-- Navigation -->
-<nav class="bg-deep-plum shadow-md">
-    <div class="max-w-6xl mx-auto px-4" style="height:4rem;display:flex;align-items:center;justify-content:space-between;">
+<!-- Navigation — white, clean, modern -->
+<nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6" style="height:4rem;display:flex;align-items:center;justify-content:space-between;">
 
-        <a th:href="@{/}" class="font-heading text-2xl font-bold text-soft-gold tracking-wide">
+        <a th:href="@{/}" class="font-heading text-2xl font-bold text-deep-plum tracking-wide"
+           style="text-decoration:none;">
             NewlyNest
         </a>
 
@@ -69,17 +70,29 @@
             <!-- Logged-in links -->
             <th:block th:if="${isAuthenticated}">
                 <a th:href="@{/dashboard}"
-                   class="text-white text-sm font-medium" style="text-decoration:none;">
+                   class="text-sm font-medium text-gray-600"
+                   style="text-decoration:none;transition:color 0.15s;"
+                   onmouseover="this.style.color='#5A3E5B'" onmouseout="this.style.color='#4b5563'">
                     Dashboard
                 </a>
+                <a th:href="@{/my-bookings}"
+                   class="text-sm font-medium text-gray-600"
+                   style="text-decoration:none;transition:color 0.15s;"
+                   onmouseover="this.style.color='#5A3E5B'" onmouseout="this.style.color='#4b5563'">
+                    My Bookings
+                </a>
                 <a th:href="@{/accounts/profile-setup}"
-                   class="text-white text-sm font-medium" style="text-decoration:none;">
+                   class="text-sm font-medium text-gray-600"
+                   style="text-decoration:none;transition:color 0.15s;"
+                   onmouseover="this.style.color='#5A3E5B'" onmouseout="this.style.color='#4b5563'">
                     My Profile
                 </a>
                 <form th:action="@{/accounts/logout}" method="post" style="margin:0;">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                    <button type="submit" class="text-white text-sm font-medium"
-                            style="background:none;border:none;cursor:pointer;padding:0;">
+                    <button type="submit"
+                            class="text-sm font-medium text-gray-500"
+                            style="background:none;border:none;cursor:pointer;padding:0;transition:color 0.15s;"
+                            onmouseover="this.style.color='#5A3E5B'" onmouseout="this.style.color='#6b7280'">
                         Log out
                     </button>
                 </form>
@@ -88,12 +101,13 @@
             <!-- Guest links -->
             <th:block th:if="${!isAuthenticated}">
                 <a th:href="@{/accounts/login}"
-                   class="text-white text-sm font-medium" style="text-decoration:none;">
+                   class="text-sm font-medium text-deep-plum"
+                   style="text-decoration:none;">
                     Log in
                 </a>
-                <a th:href="@{/accounts/signup}"
-                   style="background:#D6B77A;color:#5A3E5B;padding:0.5rem 1.25rem;border-radius:9999px;font-size:0.875rem;font-weight:600;text-decoration:none;">
-                    Sign Up
+                <a th:href="@{/accounts/signup}" class="btn-secondary"
+                   style="padding:0.5rem 1.25rem;font-size:0.875rem;">
+                    Sign Up Free
                 </a>
             </th:block>
 
@@ -104,11 +118,11 @@
 <!-- Flash messages -->
 <div class="max-w-6xl mx-auto px-4 mt-4 w-full">
     <div th:if="${successMessage}"
-         style="background:#f0fdf4;border:1px solid #86efac;color:#166534;border-radius:0.5rem;padding:0.75rem 1rem;font-size:0.875rem;margin-bottom:0.5rem;">
+         style="background:#f0fdf4;border:1px solid #86efac;color:#166534;border-radius:0.75rem;padding:0.75rem 1rem;font-size:0.875rem;margin-bottom:0.5rem;">
         <span th:text="${successMessage}"></span>
     </div>
     <div th:if="${errorMessage}"
-         style="background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;border-radius:0.5rem;padding:0.75rem 1rem;font-size:0.875rem;margin-bottom:0.5rem;">
+         style="background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;border-radius:0.75rem;padding:0.75rem 1rem;font-size:0.875rem;margin-bottom:0.5rem;">
         <span th:text="${errorMessage}"></span>
     </div>
 </div>
@@ -120,14 +134,61 @@
     </th:block>
 </main>
 
-<!-- Footer -->
+<!-- Footer — richer, 3-column -->
 <footer style="background:#5A3E5B;color:white;margin-top:auto;">
-    <div class="max-w-6xl mx-auto px-4 py-8 text-center">
-        <p class="font-heading text-xl font-bold text-soft-gold mb-2">NewlyNest</p>
-        <p style="color:#d1d5db;font-size:0.875rem;">Because every marriage is a journey worth sharing.</p>
-        <p style="color:#9ca3af;font-size:0.75rem;margin-top:1rem;">&copy; 2025 NewlyNest. All rights reserved.</p>
+    <div class="max-w-6xl mx-auto px-6 py-12">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem;">
+
+            <!-- Brand -->
+            <div>
+                <p class="font-heading text-2xl font-bold text-soft-gold mb-2">NewlyNest</p>
+                <p style="color:#d1d5db;font-size:0.875rem;line-height:1.6;">
+                    Because every marriage is a journey worth sharing.
+                </p>
+            </div>
+
+            <!-- Quick links -->
+            <div>
+                <p style="font-weight:600;font-size:0.875rem;color:#d6b77a;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.05em;">Explore</p>
+                <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                    <a th:href="@{/}" style="color:#d1d5db;font-size:0.875rem;text-decoration:none;"
+                       onmouseover="this.style.color='#D6B77A'" onmouseout="this.style.color='#d1d5db'">Home</a>
+                    <a th:href="@{/dashboard}" style="color:#d1d5db;font-size:0.875rem;text-decoration:none;"
+                       onmouseover="this.style.color='#D6B77A'" onmouseout="this.style.color='#d1d5db'">Browse Couples</a>
+                    <a th:href="@{/accounts/signup}" style="color:#d1d5db;font-size:0.875rem;text-decoration:none;"
+                       onmouseover="this.style.color='#D6B77A'" onmouseout="this.style.color='#d1d5db'">Sign Up Free</a>
+                </div>
+            </div>
+
+            <!-- Tagline / trust -->
+            <div>
+                <p style="font-weight:600;font-size:0.875rem;color:#d6b77a;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.05em;">Why NewlyNest</p>
+                <div style="display:flex;flex-direction:column;gap:0.4rem;">
+                    <p style="color:#d1d5db;font-size:0.875rem;">❤️ Judgment-free conversations</p>
+                    <p style="color:#d1d5db;font-size:0.875rem;">✨ 100% Free to join</p>
+                    <p style="color:#d1d5db;font-size:0.875rem;">💬 Real couples, real advice</p>
+                </div>
+            </div>
+
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.12);padding-top:1.5rem;text-align:center;">
+            <p style="color:#9ca3af;font-size:0.75rem;">&copy; 2025 NewlyNest. All rights reserved.</p>
+        </div>
     </div>
 </footer>
+
+<!-- Scroll-reveal JS (Jeton-inspired IntersectionObserver) -->
+<script>
+    const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                revealObserver.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
 
 </body>
 </html>

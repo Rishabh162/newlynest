@@ -1,10 +1,12 @@
 package com.newlynest.controller;
 
 import com.newlynest.dto.BookingForm;
+import com.newlynest.model.CoupleMatch;
 import com.newlynest.model.CoupleProfile;
 import com.newlynest.model.User;
 import com.newlynest.service.BookingService;
 import com.newlynest.service.CoupleProfileService;
+import com.newlynest.service.MatchingService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,18 +27,34 @@ public class MatchingController {
 
     @Autowired private CoupleProfileService coupleProfileService;
     @Autowired private BookingService bookingService;
+    @Autowired private MatchingService matchingService;
 
+    /**
+     * Dashboard — shows match status (no couple grid).
+     * State A: no profile → redirect to profile-setup
+     * State B: profile exists, no match → show "Find My Match" CTA
+     * State C: profile exists, match exists → show "View Your Match" CTA
+     */
     @GetMapping("/dashboard")
     public String dashboard(@AuthenticationPrincipal User currentUser, Model model) {
         if (coupleProfileService.findByUser(currentUser).isEmpty()) {
             return "redirect:/accounts/profile-setup";
         }
-        model.addAttribute("couples", coupleProfileService.getAvailableExperiencedCouples());
+        Optional<CoupleMatch> match = matchingService.getActiveMatch(currentUser);
+        model.addAttribute("hasMatch", match.isPresent());
         return "matching/dashboard";
     }
 
+    /**
+     * Couple detail + booking form.
+     * Restricted: only accessible if {id} matches the user's active match.
+     */
     @GetMapping("/couple/{id}")
-    public String coupleDetail(@PathVariable Long id, Model model) {
+    public String coupleDetail(@PathVariable Long id,
+                               @AuthenticationPrincipal User currentUser,
+                               Model model) {
+        if (!isUsersMatch(currentUser, id)) return "redirect:/dashboard";
+
         Optional<CoupleProfile> profileOpt = coupleProfileService.findById(id);
         if (profileOpt.isEmpty()) return "redirect:/dashboard";
 
@@ -53,6 +71,8 @@ public class MatchingController {
                            BindingResult result,
                            RedirectAttributes redirectAttributes,
                            Model model) {
+
+        if (!isUsersMatch(currentUser, id)) return "redirect:/dashboard";
 
         Optional<CoupleProfile> profileOpt = coupleProfileService.findById(id);
         if (profileOpt.isEmpty()) return "redirect:/dashboard";
@@ -80,6 +100,22 @@ public class MatchingController {
     @GetMapping("/booking/confirmed")
     public String bookingConfirmed() {
         return "matching/booking-confirmation";
+    }
+
+    @GetMapping("/my-bookings")
+    public String myBookings(@AuthenticationPrincipal User currentUser, Model model) {
+        model.addAttribute("upcoming", bookingService.getUpcomingBookings(currentUser));
+        model.addAttribute("past", bookingService.getPastBookings(currentUser));
+        return "matching/my-bookings";
+    }
+
+    // ── helpers ──────────────────────────────────────────────────────────────
+
+    /** Returns true only if the given profileId matches this user's active match. */
+    private boolean isUsersMatch(User user, Long profileId) {
+        return matchingService.getActiveMatch(user)
+                .map(m -> m.getExperiencedCouple().getId().equals(profileId))
+                .orElse(false);
     }
 
     private List<String[]> getTimeSlots() {

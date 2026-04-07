@@ -29,6 +29,16 @@ public class BookingService {
                 .toList();
     }
 
+    public List<BookingSlot> getUpcomingBookings(User user) {
+        return bookingSlotRepository
+                .findByRequestingUserAndDateGreaterThanEqualOrderByDateAscTimeSlotAsc(user, LocalDate.now());
+    }
+
+    public List<BookingSlot> getPastBookings(User user) {
+        return bookingSlotRepository
+                .findByRequestingUserAndDateBeforeOrderByDateDescTimeSlotDesc(user, LocalDate.now());
+    }
+
     @Transactional
     public BookingSlot book(User requestingUser, CoupleProfile experiencedCouple, BookingForm form) {
         if (isSlotTaken(experiencedCouple, form.getDate(), form.getTimeSlot())) {

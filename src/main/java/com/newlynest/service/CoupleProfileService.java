@@ -41,6 +41,9 @@ public class CoupleProfileService {
         profile.setYearsMarried(form.getYearsMarried());
         profile.setBio(form.getBio());
         profile.setAreasOfStrength(form.getAreasOfStrength());
+        profile.setCity(form.getCity());
+        profile.setProfession(form.getProfession());
+        profile.setChallengeAreas(form.getChallengeAreas());
         profile.setAvatarUrl(form.getAvatarUrl());
         profile.setAvailable(form.isAvailable());
 
@@ -54,6 +57,9 @@ public class CoupleProfileService {
         form.setYearsMarried(profile.getYearsMarried());
         form.setBio(profile.getBio());
         form.setAreasOfStrength(profile.getAreasOfStrength());
+        form.setCity(profile.getCity());
+        form.setProfession(profile.getProfession());
+        form.setChallengeAreas(profile.getChallengeAreas());
         form.setAvatarUrl(profile.getAvatarUrl());
         form.setAvailable(profile.isAvailable());
         return form;

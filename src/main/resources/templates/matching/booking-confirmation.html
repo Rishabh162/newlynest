@@ -7,31 +7,45 @@
 <body>
 <th:block layout:fragment="content">
 
-    <div class="min-h-screen flex items-center justify-center py-16 px-4">
-        <div class="bg-white rounded-2xl shadow-lg p-10 w-full max-w-md text-center">
+    <div class="hero-gradient" style="min-height:calc(100vh - 4rem);display:flex;align-items:center;justify-content:center;padding:3rem 1.5rem;">
+        <div style="background:white;border-radius:1.5rem;box-shadow:0 8px 32px rgba(90,62,91,0.12);
+                    padding:3rem 2rem;width:100%;max-width:26rem;text-align:center;">
 
-            <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 bg-green-100">
-                <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Celebration emoji -->
+            <p style="font-size:2.5rem;margin-bottom:1rem;">🎉</p>
+
+            <!-- Checkmark icon -->
+            <div style="width:5rem;height:5rem;border-radius:9999px;background:#dcfce7;
+                        display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+                <svg style="width:2.5rem;height:2.5rem;color:#16a34a;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
             </div>
 
-            <h1 class="font-heading text-3xl font-bold text-deep-plum mb-3">Booking Requested!</h1>
-            <p class="text-gray-500 leading-relaxed mb-8">
+            <h1 class="font-heading font-bold text-deep-plum" style="font-size:1.75rem;margin-bottom:0.75rem;">
+                Booking Requested!
+            </h1>
+            <p style="color:#6b7280;line-height:1.7;margin-bottom:2rem;font-size:0.95rem;">
                 Your request has been sent. The couple will review it and get back to you shortly.
             </p>
 
-            <div class="bg-yellow-50 rounded-xl p-4 mb-8 text-sm text-gray-600">
-                <p>While you wait, think about what you would like to discuss so you can make the most of your conversation.</p>
+            <!-- Tip box — sage-green tint -->
+            <div style="background:rgba(168,195,160,0.18);border:1px solid rgba(168,195,160,0.4);
+                        border-radius:1rem;padding:1rem 1.25rem;margin-bottom:2rem;text-align:left;">
+                <p style="font-size:0.75rem;font-weight:600;color:#3d6b35;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.35rem;">
+                    💡 While you wait
+                </p>
+                <p style="font-size:0.875rem;color:#4b5563;line-height:1.6;">
+                    Think about what you'd like to discuss so you can make the most of your conversation.
+                </p>
             </div>
 
-            <div class="flex flex-col gap-3">
-                <a th:href="@{/dashboard}"
-                   class="w-full bg-deep-plum text-white py-3 rounded-lg font-semibold text-sm text-center block">
+            <!-- CTAs -->
+            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                <a th:href="@{/dashboard}" class="btn-primary" style="text-align:center;width:100%;">
                     Back to Dashboard
                 </a>
-                <a th:href="@{/}"
-                   class="w-full border-2 border-deep-plum text-deep-plum py-3 rounded-lg font-semibold text-sm text-center block">
+                <a th:href="@{/}" class="btn-outline" style="text-align:center;width:100%;">
                     Go to Home
                 </a>
             </div>
